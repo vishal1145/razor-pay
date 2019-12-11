@@ -36,6 +36,8 @@ app.post('/payment', async (req, res) => {
     custom_id: req.body.custom_id || "",
     login_type: req.body.login_type || "",
     amount: req.body.amount,
+    type:req.body.type,
+    description:req.body.description,
     notes: req.body.notes,
   })
   const paymentResult = await addObj.save();
