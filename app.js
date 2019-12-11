@@ -1,6 +1,6 @@
 const app = require('express')();
 const mongoose = require('mongoose');
-const port = 5001;
+let port = 5001;
 const cors = require('cors')
 const parser = require('body-parser')
 const Razorpay = require('razorpay')
@@ -19,6 +19,8 @@ mongoose.connect('mongodb://localhost:27017/my_database', {
 // const aaaa = await payment.find({})
 // console.log(aaaa)
 // }
+
+port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 app.post('/payment', async (req, res) => {
