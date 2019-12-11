@@ -36,8 +36,8 @@ app.post('/payment', async (req, res) => {
     custom_id: req.body.custom_id || "",
     login_type: req.body.login_type || "",
     amount: req.body.amount,
-    type:req.body.type,
-    description:req.body.description,
+    type: req.body.type,
+    description: req.body.description,
     notes: req.body.notes,
   })
   const paymentResult = await addObj.save();
@@ -61,12 +61,19 @@ app.post('/updatePaymentStatus', async (req, res) => {
   var data = await PaymentOrder.findByIdAndUpdate(id, {
     $set: { status: "Done" }, multi: true
   })
+  res.send(data)
 
 })
 
-app.get('/getPaymentId', async (req, res) => {
-  var id = req.body.payment_id
-  var data = await PaymentOrder.find({})
+app.post('/getPaymentId', async (req, res) => {
+  var id = req.body.customer_id
+  var login_type = req.body.type_login
+  var data
+  if (login_type == "Google") {
+    data = await PaymentOrder.find({ google_id: id })
+  }
+  if (login_type == "Custom") {
+    data = await PaymentOrder.find({ custom_id: id })
+  }
   res.send(data)
-
 })

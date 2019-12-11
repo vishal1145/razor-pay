@@ -8,6 +8,11 @@ const PaymentOrderSchema = new mongoose.Schema({
     amount: Number,
     currency: String,
     notes: String,
+    type:{
+        type: String,
+        default: 'One Time'
+    },
+    description:String,
     status: {
         type: String,
         default: 'InProgress'
