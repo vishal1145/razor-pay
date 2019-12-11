@@ -9,7 +9,7 @@ app.use(parser())
 require('./models/PaymentOrder');
 const PaymentOrder = mongoose.model('PaymentOrder');
 
-mongoose.connect('mongodb://localhost:27017/my_database', {
+mongoose.connect('mongodb+srv://credithelp:credithelp@cluster0-b4cma.mongodb.net/test?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
