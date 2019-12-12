@@ -7,7 +7,9 @@ const Razorpay = require('razorpay')
 app.use(cors())
 app.use(parser())
 require('./models/PaymentOrder');
+require('./models/submitOrder');
 const PaymentOrder = mongoose.model('PaymentOrder');
+const SubmitOrder = mongoose.model('SubmitOrder');
 
 mongoose.connect('mongodb+srv://credithelp:credithelp@cluster0-b4cma.mongodb.net/test?retryWrites=true&w=majority', {
   useNewUrlParser: true,
@@ -103,4 +105,17 @@ app.post('/getPaymentId', async (req, res) => {
     data = await PaymentOrder.find({ custom_id: id ,status:"Done"})
   }
   res.send(data)
+})
+
+
+
+app.post('/submitOrder', async (req, res) => {
+  let orderResult
+      const addObj = new SubmitOrder({
+        customer_id: req.body.id,
+        date: req.body.date,
+        time: req.body.time
+      })
+      orderResult = await addObj.save();
+  res.send(orderResult)
 })
